@@ -1,15 +1,31 @@
 import { useState } from "react";
 import './TodoItem.css'
-function handleClick( todo){
-    alert( `${todo} Clicked`)
-}
-function TodoItem( props){
-const [isFinished, setIsFinished] = useState(false);
+
+function TodoItem(props) {
+    const [isEditting, setIsEditting] = useState(false);
+    const [todoData, setTodoData] = useState(props.todo.data)
+
     return (
         <div>
-            <li onClick={()=> handleClick(props.todo.data)}> <span className={(isFinished)? 'todo-done':'todo-notdone'}>{props.todo.data}</span>
+            <li >
+                {
+                    (isEditting) ? <input type="text" value={todoData} onChange={(e) => setTodoData(e.target.value)} /> : <span>{props.todo.data}</span>
+
+                }
+
             </li>
-            <button onClick={()=> setIsFinished(!isFinished)}>{(isFinished)? 'ReDo' : 'Done'}</button>
+            <button onClick={() => {
+
+                props.delete()
+            }
+            }>Done</button>
+            <button onClick={() => {
+                setIsEditting(!isEditting)
+                props.edit(todoData)
+            }}>
+
+                {(isEditting) ? 'Save' : 'Edit'}
+            </button>
         </div>
     );
 }
