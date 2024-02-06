@@ -15,3 +15,5 @@ const [isFinished, setIsFinished] = useState(false);
 }
 
 export default TodoItem;
+
+//removing when todo finished or marked done
